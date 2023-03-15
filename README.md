@@ -29,7 +29,7 @@ Note that we are using automatic scripts to process your submission. **DO NOT ad
 
 #### 2. Deadline
 
-You need to submit the above file to **Canvas**. The deadline for this assignment is **April 15, 2023, 23:59:59**. 
+You need to submit the above file to **Canvas**. The deadline for this assignment is **April 09, 2023, 23:59:59**. 
 
 #### 3. Important Note
 
