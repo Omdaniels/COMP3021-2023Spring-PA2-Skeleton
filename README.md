@@ -19,10 +19,10 @@ Please try to compile your code with `./gradlew build` before submission. You wi
 
 #### 1. Format
 
-You should submit a single text file specified like this: A file named `<itsc-id>.txt` containing the URL of your private repository at the first line. For example, a student CHAN, Tai Man with ITSC ID `tmchanaa` having a repository at `https://github.com/tai-man-chan/COMP3021-PA1` should submit a file named `tmchanaa.txt` with the following content:
+You should submit a single text file specified like this: A file named `<itsc-id>.txt` containing the URL of your private repository at the first line. For example, a student CHAN, Tai Man with ITSC ID `tmchanaa` having a repository at `https://github.com/tai-man-chan/COMP3021-PA2` should submit a file named `tmchanaa.txt` with the following content:
 
 ```text
-https://github.com/tai-man-chan/COMP3021-PA1
+https://github.com/tai-man-chan/COMP3021-PA2
 ```
 
 Note that we are using automatic scripts to process your submission. **DO NOT add extra explanation** to the file; otherwise they will prevent our scripts from correctly processing your submission. Feel free to email us if you need clarification.
