@@ -78,19 +78,47 @@ the fields of these resources are updated, e.g., the fields `tags` and `comments
   2. <u>**Search by title**</u>
   3. <u>**Search by author**</u>
   4. <u>**Search by journal**</u>
+  
+  ```java
+  List<Integer> numList = new ArrayList<Integer>();
+  Consumer<Integer> addToSet = num -> numList.add(num);
+  ```
+  
 * <u>**Fully implement the functional interfaces in the class `SortPaperAction` and utilize them to implement the new method `processSortPaperActionByLambda` to support the following criteria.**</u>
   1. <u>**Search by ID**</u>
   2. <u>**Search by title**</u>
   3. <u>**Search by author**</u>
   4. <u>**Search by journal**</u>
+  
+  ```java
+  Predicate<Integer> isSame = num -> num == 1;
+  ```
+  
 * <u>**Fully implement the functional interfaces in the class `SearchResearcherAction` and utilize them to implement the new method `processSearchResearcherActionByLambda` to support the following criteria.**</u>
   1. <u>**Search researchers who publish papers more than X times in the recent Y years**</u>
   2. <u>**Search researchers whose papers published in the journal X have abstracts more than Y words**</u>
   3. <u>**Search researchers whoes keywords have more than similarity X as one of those of the researcher Y**</u>
+  
+  ```java
+  List<Integer> numList = numSet.stream()
+    														.filter(x -> x > 10)
+    														.sorted((x, y) -> x - y)
+    														.collect(Collectors.toList());
+  ```
+  
 * <u>**Fully implement the functional interfaces in the class `StatisticalInformationAction` and utilize them to implement the new method `processStatisticalInformationActionByLambda` to support the following criteria.**</u>
-  	1. <u>**Obtain the average number of papers published by researchers per year**</u>
-  	1. <u>**Obtain the journals that receive the most papers every year**</u>
+  
+  1. <u>**Obtain the average number of papers published by researchers per year**</u>
+  2. <u>**Obtain the journals that receive the most papers every year**</u>
+  
+  ```java
+  int numCount = numSet.stream().map(Integer::toString).distinct().count();
+  ```
+
 * <u>**Rewrite the methods `searchCommentByPaperObjID`, `searchCommentByCommentObjID` and `searchLabelByPaperID` with Lambda expressions and implement them as `searchCommentByPaperObjIDByLambda`, `searchCommentByCommentObjIDByLambda` and `searchLabelByPaperIDByLambda`, respectively.**</u> 
+* **<u>Implement a custom ArrayList in `CustomArrayList()` and test it by yourself in `src/test/java/hk.ust.comp3021.utils/ TestCustomArrayList.java`. You only need to test the methods in `CustomArrayList` except constructors, with two types `Paper` and `String`.</u>**
+  1. <u>**This part is to help you get familiar with Generics.**</u>
+  2. <u>**We will grade this part by mutually examining your code.**</u>
 
 ## Tips
 
