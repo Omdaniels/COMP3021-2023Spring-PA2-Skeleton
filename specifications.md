@@ -101,9 +101,9 @@ the fields of these resources are updated, e.g., the fields `tags` and `comments
   
   ```java
   List<Integer> numList = numSet.stream()
-    														.filter(x -> x > 10)
-    														.sorted((x, y) -> x - y)
-    														.collect(Collectors.toList());
+    .filter(x -> x > 10)
+    .sorted((x, y) -> x - y)
+    .collect(Collectors.toList());
   ```
   
 * <u>**Fully implement the functional interfaces in the class `StatisticalInformationAction` and utilize them to implement the new method `processStatisticalInformationActionByLambda` to support the following criteria.**</u>
