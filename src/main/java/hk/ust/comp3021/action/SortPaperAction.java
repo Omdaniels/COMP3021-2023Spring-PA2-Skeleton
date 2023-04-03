@@ -80,6 +80,7 @@ public class SortPaperAction extends Action {
      * 3) if a < b, then return -1;
      * PS1: if a = null, then a is considered as smaller than non-null b;
      * PS2: if a and b are both null, then they are considered equal;
+     * PS3: for the author comparison, we should compose the string of the author names separated by commas.
      */
     public Comparator<Paper> comparator;
 

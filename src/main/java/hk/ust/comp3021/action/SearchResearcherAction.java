@@ -72,7 +72,7 @@ public class SearchResearcherAction extends Action {
 
     /**
      * TODO `searchFunc2` indicates the second searching criterion,
-     *    i.e., Search researchers whose papers published in the journal X have abstracts more than Y words.
+     *    i.e., Search researchers whose papers published in the journal X have abstracts of which the length is more than Y.
      * @param null
      * @return `actionResult` that contains the relevant researchers
      */
