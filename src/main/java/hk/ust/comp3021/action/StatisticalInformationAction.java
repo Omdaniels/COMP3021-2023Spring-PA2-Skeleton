@@ -42,7 +42,22 @@ public class StatisticalInformationAction extends Action {
      * @param a list of papers to be profiled
      * @return `actionResult` that contains the target result
      */
-    public Function<List<Paper>, Map<String, Double>> obtainer1;
+
+    public Function<List<Paper>, Map<String, Double>> obtainer1 = paperList -> {
+        Map<String, List<Paper>> researcherPapers = new HashMap<>();
+        paperList.forEach(paper -> paper.getAuthors().forEach(author -> {
+            researcherPapers.computeIfAbsent(author, k -> new ArrayList<>()).add(paper);
+        }));
+
+        researcherPapers.forEach((author, papers) -> {
+            long nbDistinctYears = papers.stream().map(Paper::getYear).distinct().count();
+            int nbPapers = papers.size();
+            double avgPapersPerYear = nbPapers / (double) nbDistinctYears;
+            this.actionResult.put(author, avgPapersPerYear);
+        });
+
+        return this.actionResult;
+    };
 
     /**
      * TODO `obtainer2` indicates the second profiling criterion,
@@ -53,6 +68,27 @@ public class StatisticalInformationAction extends Action {
      * PS2: We keep the chronological order of year so that the results of the subsequent year will replace the
      *      results of the previous year if one journal receives the most papers in two or more different years.
      */
-    public Function<List<Paper>, Map<String, Double>> obtainer2;
+
+    public Function<List<Paper>, Map<String, Double>> obtainer2 = paperList -> {
+        List<Integer> distinctYears = paperList.stream().map(Paper::getYear).distinct().sorted().collect(Collectors.toList());
+        Map<String, List<Paper>> journalPapers = new HashMap<>();
+
+        distinctYears.forEach(year -> {
+            journalPapers.clear();
+            paperList.stream()
+                    .filter(paper -> paper.getYear() == year)
+                    .filter(paper -> paper.getJournal() != null)
+                    .forEach(paper -> {
+                        journalPapers.computeIfAbsent(paper.getJournal(), k -> new ArrayList<>()).add(paper);
+                    });
+
+            Optional<Map.Entry<String, List<Paper>>> entryWithMaxSize = journalPapers.entrySet().stream()
+                    .max(Comparator.comparing(entry -> entry.getValue().size()));
+
+            entryWithMaxSize.ifPresent(entry -> this.actionResult.put(entry.getKey(), (double) entry.getValue().size()));
+        });
+
+        return this.actionResult;
+    };
 
 }
