@@ -38,10 +38,16 @@ public class User extends Person {
      * @param the paper id
      * @return the list of comments based on the input id
      */
+ 
     public ArrayList<Comment> searchCommentByPaperObjIDByLambda(String id) {
         ArrayList<Comment> res = new ArrayList<>();
+        userComments.stream()
+                    .filter(comment -> comment.getType() == Comment.CommentType.COMMENT_OF_PAPER)
+                    .filter(comment -> comment.getCommentObjId().equals(id))
+                    .forEach(comment -> res.add(comment));
         return res;
     }
+
 
     public ArrayList<Comment> searchCommentByCommentObjID(String id) {
         ArrayList<Comment> res = new ArrayList<>();
@@ -60,8 +66,13 @@ public class User extends Person {
      * @param the comment id
      * @return the list of comments based on the input id
      */
+ 
     public ArrayList<Comment> searchCommentByCommentObjIDByLambda(String id) {
         ArrayList<Comment> res = new ArrayList<>();
+        userComments.stream()
+                    .filter(comment -> comment.getType() == Comment.CommentType.COMMENT_OF_COMMENT)
+                    .filter(comment -> comment.getCommentObjId().equals(id))
+                    .forEach(comment -> res.add(comment));
         return res;
     }
 
@@ -84,8 +95,13 @@ public class User extends Person {
      * @param the paper id
      * @return the list of labels based on the input id
      */
+
     public ArrayList<Label> searchLabelByPaperIDByLambda(String id) {
         ArrayList<Label> res = new ArrayList<>();
+        userLabels.stream()
+                  .filter(label -> label.getPaperID().equals(id))
+                  .forEach(label -> res.add(label));
         return res;
     }
+
 }
