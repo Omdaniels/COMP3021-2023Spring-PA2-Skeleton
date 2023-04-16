@@ -194,12 +194,24 @@ public class MiniMendeleyEngine {
         actions.add(action);
         switch (action.getKind()) {
             case ID:
+                paperBase.entrySet().stream()
+                        .filter(entry -> action.getSearchContent().equals(entry.getKey()))
+                        .forEach(entry -> action.appendToActionResult(entry.getValue()));
                 break;
             case TITLE:
+                paperBase.entrySet().stream()
+                        .filter(entry -> action.getSearchContent().equals(entry.getValue().getTitle()))
+                        .forEach(entry -> action.appendToActionResult(entry.getValue()));
                 break;
             case AUTHOR:
+                paperBase.entrySet().stream()
+                        .filter(entry -> entry.getValue().getAuthors().contains(action.getSearchContent()))
+                        .forEach(entry -> action.appendToActionResult(entry.getValue()));
                 break;
             case JOURNAL:
+                paperBase.entrySet().stream()
+                        .filter(entry -> action.getSearchContent().equals(entry.getValue().getJournal()))
+                        .forEach(entry -> action.appendToActionResult(entry.getValue()));
                 break;
             default:
                 break;
@@ -207,12 +219,19 @@ public class MiniMendeleyEngine {
         return action.getActionResult();
     }
 
+    
+   
+
     /**
      * TODO: Implement the custom comparators for various scenarios.
      * The things you need to do: 1) implement the functional interfaces; 2) fulfill the logic here.
      * The prototypes for the functional interfaces are in `SortPaperAction`.
      * PS: You should operate directly on `actionResult` since we have already put the papers into it in the original order.
      */
+    
+    
+    
+    
     public List<Paper> processSortPaperActionByLambda(User curUser, SortPaperAction action) {
         actions.add(action);
         paperBase.entrySet().forEach(entry -> {
@@ -220,19 +239,73 @@ public class MiniMendeleyEngine {
         });
         switch (action.getBase()) {
             case ID:
+                action.comparator = (p1, p2) -> {
+                    String id1 = p1.getPaperID();
+                    String id2 = p2.getPaperID();
+                    if (id1 == null && id2 == null) {
+                        return 0;
+                    } else if (id1 == null) {
+                        return -1;
+                    } else if (id2 == null) {
+                        return 1;
+                    } else {
+                        return id1.compareTo(id2);
+                    }
+                };
                 break;
             case TITLE:
+                action.comparator = (p1, p2) -> {
+                    String title1 = p1.getTitle();
+                    String title2 = p2.getTitle();
+                    if (title1 == null && title2 == null) {
+                        return 0;
+                    } else if (title1 == null) {
+                        return -1;
+                    } else if (title2 == null) {
+                        return 1;
+                    } else {
+                        return title1.compareTo(title2);
+                    }
+                };
                 break;
             case AUTHOR:
+                action.comparator = (p1, p2) -> {
+                    String author1 = String.join(",", p1.getAuthors());
+                    String author2 = String.join(",", p2.getAuthors());
+                    if (author1 == null && author2 == null) {
+                        return 0;
+                    } else if (author1 == null) {
+                        return -1;
+                    } else if (author2 == null) {
+                        return 1;
+                    } else {
+                        return author1.compareTo(author2);
+                    }
+                };
                 break;
             case JOURNAL:
+                action.comparator = (p1, p2) -> {
+                    String journal1 = p1.getJournal();
+                    String journal2 = p2.getJournal();
+                    if (journal1 == null && journal2 == null) {
+                        return 0;
+                    } else if (journal1 == null) {
+                        return -1;
+                    } else if (journal2 == null) {
+                        return 1;
+                    } else {
+                        return journal1.compareTo(journal2);
+                    }
+                };
                 break;
             default:
-                break;
+                throw new IllegalArgumentException("Invalid sort base");
         }
         action.sortFunc.get();
         return action.getActionResult();
     }
+   
+
 
     /**
      * TODO: Implement the new searching method with Lambda expressions using functional interfaces.
@@ -283,6 +356,7 @@ public class MiniMendeleyEngine {
         }
         return action.getActionResult();
     }
+
 
     public void processUploadPaperAction(User curUser, UploadPaperAction action) {
         actions.add(action);
